@@ -1,0 +1,47 @@
+[
+  {
+    "id": "admin-1",
+    "email": "admin@157tattoo.com",
+    "password_hash": "admin123",
+    "full_name": "สมชาย ผู้ดูแลร้าน (Admin)",
+    "phone": "0812345678",
+    "role": "admin",
+    "created_at": "2026-07-22T14:00:11.532Z"
+  },
+  {
+    "id": "artist-1",
+    "email": "artist1@157tattoo.com",
+    "password_hash": "artist123",
+    "full_name": "ช่างเอก ลายไทย (Artist)",
+    "phone": "0823456789",
+    "role": "artist",
+    "created_at": "2026-07-22T14:00:11.532Z"
+  },
+  {
+    "id": "artist-2",
+    "email": "artist2@157tattoo.com",
+    "password_hash": "artist123",
+    "full_name": "ช่างบี มินิมอล (Artist)",
+    "phone": "0834567890",
+    "role": "artist",
+    "created_at": "2026-07-22T14:00:11.532Z"
+  },
+  {
+    "id": "customer-1",
+    "email": "customer@gmail.com",
+    "password_hash": "customer123",
+    "full_name": "คุณวิชัย รักดี (Customer)",
+    "phone": "0845678901",
+    "role": "customer",
+    "created_at": "2026-07-22T14:00:11.532Z"
+  },
+  {
+    "id": "cust-09b45f38",
+    "email": "thanoo1112@gmail.com",
+    "password_hash": "armeethanoo1112",
+    "full_name": "ธนู อามี",
+    "phone": "0946345069",
+    "role": "customer",
+    "created_at": "2026-07-22T14:01:06.587Z"
+  }
+]

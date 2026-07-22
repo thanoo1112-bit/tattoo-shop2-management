@@ -2,7 +2,7 @@ import { readTable } from '@/lib/db';
 
 export async function GET() {
   try {
-    const users = readTable('users');
+    const users = await readTable('users');
     const artists = users.filter(u => u.role === 'artist');
     return new Response(JSON.stringify(artists), {
       status: 200,

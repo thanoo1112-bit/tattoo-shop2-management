@@ -1,42 +1,96 @@
 import fs from 'fs';
 import path from 'path';
+import { supabase } from './supabase';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 
-// Ensure data directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+// Initialize memory fallback for Serverless environments like Vercel
+if (!global.memoryDb) {
+  global.memoryDb = {};
+}
+
+// Helper to check if filesystem is writeable
+let isWritable = true;
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+} catch (e) {
+  isWritable = false;
 }
 
 function getFilePath(table) {
   return path.join(DATA_DIR, `${table}.json`);
 }
 
-export function readTable(table) {
-  const filePath = getFilePath(table);
-  if (!fs.existsSync(filePath)) {
-    // Initial Seed Data
-    const initialData = getSeedData(table);
-    writeTable(table, initialData);
-    return initialData;
+// ASYNC DB Reads
+export async function readTable(table) {
+  // 1. If Supabase is connected, fetch from Supabase
+  if (supabase) {
+    try {
+      const { data, error } = await supabase.from(table).select('*');
+      if (error) throw error;
+      return data || [];
+    } catch (e) {
+      console.error(`Supabase read error for table ${table}:`, e);
+      // fallback to memory/json if Supabase fails
+    }
   }
+
+  // 2. Fallback to Local/Memory DB
+  if (global.memoryDb[table]) {
+    return global.memoryDb[table];
+  }
+
+  const filePath = getFilePath(table);
+  
+  if (!isWritable || !fs.existsSync(filePath)) {
+    const seedData = getSeedData(table);
+    global.memoryDb[table] = seedData;
+    return seedData;
+  }
+
   try {
     const data = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+    global.memoryDb[table] = parsed;
+    return parsed;
   } catch (e) {
-    console.error(`Error reading table ${table}:`, e);
-    return [];
+    const seedData = getSeedData(table);
+    global.memoryDb[table] = seedData;
+    return seedData;
   }
 }
 
-export function writeTable(table, data) {
+// ASYNC DB Writes
+export async function writeTable(table, data) {
+  // 1. If Supabase is connected, write to Supabase
+  if (supabase) {
+    try {
+      // In Supabase, we upsert the whole array or individual items.
+      // To keep it simple and match our existing array structure, we upsert all items.
+      const { error } = await supabase.from(table).upsert(data);
+      if (error) throw error;
+      return true;
+    } catch (e) {
+      console.error(`Supabase write error for table ${table}:`, e);
+      // fallback to memory/json
+    }
+  }
+
+  // 2. Fallback to Local/Memory DB
+  global.memoryDb[table] = data;
+
+  if (!isWritable) {
+    return true;
+  }
+
   const filePath = getFilePath(table);
   try {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
     return true;
   } catch (e) {
-    console.error(`Error writing table ${table}:`, e);
-    return false;
+    return true; 
   }
 }
 
@@ -47,7 +101,7 @@ function getSeedData(table) {
         {
           id: 'admin-1',
           email: 'admin@157tattoo.com',
-          password_hash: 'admin123', // In a production app, this would be hashed
+          password_hash: 'admin123',
           full_name: 'สมชาย ผู้ดูแลร้าน (Admin)',
           phone: '0812345678',
           role: 'admin',

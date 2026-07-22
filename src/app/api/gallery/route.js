@@ -3,7 +3,7 @@ import crypto from 'crypto';
 
 export async function GET() {
   try {
-    const gallery = readTable('gallery');
+    const gallery = await readTable('gallery');
     return new Response(JSON.stringify(gallery), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
@@ -19,7 +19,7 @@ export async function GET() {
 export async function POST(request) {
   try {
     const { title, style, image_url, artist_id } = await request.json();
-    const gallery = readTable('gallery');
+    const gallery = await readTable('gallery');
 
     const newGalleryItem = {
       id: 'g-' + crypto.randomUUID().substring(0, 8),
@@ -30,7 +30,7 @@ export async function POST(request) {
     };
 
     gallery.push(newGalleryItem);
-    writeTable('gallery', gallery);
+    await writeTable('gallery', gallery);
 
     return new Response(JSON.stringify({ message: 'เพิ่มผลงานในแกลเลอรีเรียบร้อย', item: newGalleryItem }), {
       status: 201,

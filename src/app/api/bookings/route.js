@@ -8,8 +8,8 @@ export async function GET(request) {
     const artistId = searchParams.get('artist_id');
     const role = searchParams.get('role');
 
-    let bookings = readTable('bookings');
-    const users = readTable('users');
+    let bookings = await readTable('bookings');
+    const users = await readTable('users');
 
     // Enrich bookings with customer and artist names
     bookings = bookings.map(b => {
@@ -57,9 +57,9 @@ export async function POST(request) {
       slip_image_url
     } = await request.json();
 
-    const bookings = readTable('bookings');
-    const payments = readTable('payments');
-
+    const bookings = await readTable('bookings');
+    const payments = await readTable('payments');
+ 
     const newBookingId = 'book-' + crypto.randomUUID().substring(0, 8);
     const newBooking = {
       id: newBookingId,
@@ -74,7 +74,7 @@ export async function POST(request) {
       deposit_amount: parseFloat(deposit_amount),
       created_at: new Date().toISOString()
     };
-
+ 
     const newPayment = {
       id: 'pay-' + crypto.randomUUID().substring(0, 8),
       booking_id: newBookingId,
@@ -83,12 +83,12 @@ export async function POST(request) {
       status: 'PENDING',
       payment_date: new Date().toISOString()
     };
-
+ 
     bookings.push(newBooking);
     payments.push(newPayment);
-
-    writeTable('bookings', bookings);
-    writeTable('payments', payments);
+ 
+    await writeTable('bookings', bookings);
+    await writeTable('payments', payments);
 
     return new Response(JSON.stringify({ message: 'จองคิวสำเร็จ รอผู้ดูแลตรวจสอบสลิปมัดจำ', booking: newBooking }), {
       status: 201,

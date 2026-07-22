@@ -1,0 +1,26 @@
+[
+  {
+    "id": "service-1",
+    "name": "Minimal Style (มินิมอล)",
+    "description": "ลายเส้นขนาดเล็ก ลายสักเก๋ไก๋ น่ารัก เรียบง่าย",
+    "base_price": 1500
+  },
+  {
+    "id": "service-2",
+    "name": "Realism (เหมือนจริง)",
+    "description": "งานสักภาพพอร์ตเทรต สัตว์ สิ่งของ ที่ต้องการความเสมือนจริงสูง",
+    "base_price": 8000
+  },
+  {
+    "id": "service-3",
+    "name": "Japanese Traditional (ญี่ปุ่นโบราณ)",
+    "description": "ลายสักญี่ปุ่นลงสีเข้มข้น ดุดัน สวยงามประณีต",
+    "base_price": 6000
+  },
+  {
+    "id": "service-4",
+    "name": "Tribal / Maori (ชนเผ่า/เมารี)",
+    "description": "ลายเรขาคณิตถมดำ ลายชนเผ่าเสริมบารมีและมิติร่างกาย",
+    "base_price": 4500
+  }
+]

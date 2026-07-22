@@ -4,7 +4,7 @@ import crypto from 'crypto';
 export async function POST(request) {
   try {
     const { email, password, full_name, phone } = await request.json();
-    const users = readTable('users');
+    const users = await readTable('users');
     
     // Check if user already exists
     if (users.find(u => u.email === email)) {
@@ -25,7 +25,7 @@ export async function POST(request) {
     };
 
     users.push(newUser);
-    writeTable('users', users);
+    await writeTable('users', users);
 
     return new Response(JSON.stringify({
       message: 'สมัครสมาชิกสำเร็จ',

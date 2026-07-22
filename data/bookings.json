@@ -1,0 +1,15 @@
+[
+  {
+    "id": "booking-1",
+    "customer_id": "customer-1",
+    "artist_id": "artist-1",
+    "booking_date": "2026-07-24T13:00:00",
+    "tattoo_style": "Minimal Style (มินิมอล)",
+    "description": "อยากได้ลายดอกไม้เล็กๆ ที่ข้อมือ ขนาดประมาณ 3 ซม. ครับ",
+    "reference_image_url": "https://images.unsplash.com/photo-1560707303-4e980c87f8ad?q=80&w=300&auto=format&fit=crop",
+    "status": "CONFIRMED",
+    "total_price": 1500,
+    "deposit_amount": 500,
+    "created_at": "2026-07-22T14:02:17.322Z"
+  }
+]

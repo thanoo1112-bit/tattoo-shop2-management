@@ -3,7 +3,7 @@ import { readTable } from '@/lib/db';
 export async function POST(request) {
   try {
     const { email, password } = await request.json();
-    const users = readTable('users');
+    const users = await readTable('users');
     const user = users.find(u => u.email === email && u.password_hash === password);
 
     if (!user) {

@@ -3,7 +3,7 @@ import crypto from 'crypto';
 
 export async function GET() {
   try {
-    const services = readTable('services');
+    const services = await readTable('services');
     return new Response(JSON.stringify(services), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
@@ -19,7 +19,7 @@ export async function GET() {
 export async function POST(request) {
   try {
     const { name, description, base_price } = await request.json();
-    const services = readTable('services');
+    const services = await readTable('services');
 
     const newService = {
       id: 'srv-' + crypto.randomUUID().substring(0, 8),
@@ -29,7 +29,7 @@ export async function POST(request) {
     };
 
     services.push(newService);
-    writeTable('services', services);
+    await writeTable('services', services);
 
     return new Response(JSON.stringify({ message: 'เพิ่มบริการใหม่เรียบร้อย', service: newService }), {
       status: 201,

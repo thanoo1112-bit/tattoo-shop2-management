@@ -6,7 +6,7 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const bookingId = searchParams.get('booking_id');
 
-    const sessions = readTable('tattoo_sessions');
+    const sessions = await readTable('tattoo_sessions');
 
     if (bookingId) {
       const session = sessions.find(s => s.booking_id === bookingId);
@@ -32,8 +32,8 @@ export async function POST(request) {
   try {
     const { booking_id, photo_before_url, photo_after_url, session_notes, mark_completed } = await request.json();
 
-    const sessions = readTable('tattoo_sessions');
-    const bookings = readTable('bookings');
+    const sessions = await readTable('tattoo_sessions');
+    const bookings = await readTable('bookings');
 
     let sessionIndex = sessions.findIndex(s => s.booking_id === booking_id);
 
@@ -60,8 +60,8 @@ export async function POST(request) {
       }
     }
 
-    writeTable('tattoo_sessions', sessions);
-    writeTable('bookings', bookings);
+    await writeTable('tattoo_sessions', sessions);
+    await writeTable('bookings', bookings);
 
     return new Response(JSON.stringify({ message: 'บันทึกประวัติการสักเรียบร้อย', session: sessionData }), {
       status: 200,

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "g-1",
+    "title": "มินิมอลดอกทิวลิป",
+    "style": "Minimal Style (มินิมอล)",
+    "image_url": "https://images.unsplash.com/photo-1560707303-4e980c87f8ad?q=80&w=600&auto=format&fit=crop",
+    "artist_id": "artist-2"
+  },
+  {
+    "id": "g-2",
+    "title": "ภาพมังกรญี่ปุ่นเต็มหลัง",
+    "style": "Japanese Traditional (ญี่ปุ่นโบราณ)",
+    "image_url": "https://images.unsplash.com/photo-1590246814883-57c511e76757?q=80&w=600&auto=format&fit=crop",
+    "artist_id": "artist-1"
+  }
+]

@@ -1,0 +1,37 @@
+/* Themes configuration for 157 TATTOO */
+
+:root[data-theme='dark'] {
+  --background: #0d0d0d;
+  --surface: #1a1a1a;
+  --surface-hover: #262626;
+  --border: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #999999;
+  --accent: #d4af37; /* Metallic Gold */
+  --accent-hover: #bfa02e;
+  --accent-light: rgba(212, 175, 55, 0.15);
+  --success: #2ecc71;
+  --error: #e74c3c;
+  --pending: #f39c12;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --glass-bg: rgba(26, 26, 26, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme='light'] {
+  --background: #f8f9fa;
+  --surface: #ffffff;
+  --surface-hover: #f1f3f5;
+  --border: #dee2e6;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --accent: #bfa02e; /* Muted Gold for better light readability */
+  --accent-hover: #9e821b;
+  --accent-light: rgba(191, 160, 46, 0.1);
+  --success: #27ae60;
+  --error: #c0392b;
+  --pending: #d35400;
+  --shadow: rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(0, 0, 0, 0.05);
+}
